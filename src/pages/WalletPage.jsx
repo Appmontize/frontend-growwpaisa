@@ -2,28 +2,37 @@ import { Avatar, Button, Card, Flex, Typography } from "antd";
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { UserOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import { useNavigate } from "react-router-dom"; 
 
-const Dashboard = () => {
-  const navigate = useNavigate(); // Initialize useNavigate hook
+const WalletPage = () => {
+    const navigate = useNavigate(); // Initialize useNavigate hook
+
   const { userData, logout } = useAuth();
 
   const handleLogout = async () => {
+    navigate("/");
     await logout();
-    navigate("/"); // Redirect to home page after logout
   };
+
+  // Check if userData exists before accessing its properties
+  if (!userData) {
+    // You can return a loading indicator or handle this case as per your UI needs
+    return <div>Loading...</div>;
+  }
 
   return (
     <Card className="profile-card">
       <Flex vertical gap="small" align="center">
         <Avatar size={150} icon={<UserOutlined />} className="avatar" />
         <Typography.Title level={1} strong className="username">
-          {userData.name}
+          My Wallet
         </Typography.Title>
-        <Typography.Text type="secondary" strong>
-          Email: {userData.email}
+        <Typography.Text type="secondary">
+          Available Amount: 0.00 Coins
         </Typography.Text>
-        <Typography.Text type="secondary">Role: {userData.role}</Typography.Text>
+        <Typography.Text type="secondary">
+          Minimum Amount Withdrawn: 0.00 Coins
+        </Typography.Text>
       </Flex>
       <Button
         size="large"
@@ -37,4 +46,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default WalletPage;

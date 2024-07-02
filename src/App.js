@@ -15,6 +15,7 @@ import SeparateLayout from './Components/SeparateLayout';
 import FeatureDetailsLoan from './Components/FeatureDetailsLoan';
 import PostsHome from './Components/Blogs/PostsHome';
 import ComingSoon from './Components/ComingSoon';
+import WalletPage from './pages/WalletPage';
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
       <Route path = '/register' element={!isAuthenticated ? <Register /> : <Navigate to= '/campaigns'/>} />
       <Route path = '/login' element={!isAuthenticated ? <Login /> : <Navigate to ="/campaigns"/>} />
       <Route path = '/dashboard' element={isAuthenticated ? <Dashboard /> : <Login/>} />
+      <Route path = '/wallet' element={<WalletPage />} />
       
 
       <Route
