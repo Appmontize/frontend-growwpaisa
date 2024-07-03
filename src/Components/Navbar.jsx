@@ -3,7 +3,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'; // Adjust the path as per your file structure
 import logo from '../images/apnaloan (14).png';
 import { Avatar, Menu, Dropdown } from 'antd';
-import { UserOutlined, LogoutOutlined, ProfileOutlined } from '@ant-design/icons';
+import { UserOutlined, LogoutOutlined, ProfileOutlined, WalletOutlined } from '@ant-design/icons';
 
 function Navbar() {
   const { isAuthenticated, logout, userData } = useAuth(); // Assuming userData contains user information

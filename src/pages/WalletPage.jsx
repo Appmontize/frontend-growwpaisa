@@ -1,7 +1,7 @@
 import { Avatar, Button, Card, Flex, Typography } from "antd";
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { UserOutlined } from "@ant-design/icons";
+import { UserOutlined, WalletOutlined  } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom"; 
 
 const WalletPage = () => {
@@ -23,7 +23,7 @@ const WalletPage = () => {
   return (
     <Card className="profile-card">
       <Flex vertical gap="small" align="center">
-        <Avatar size={150} icon={<UserOutlined />} className="avatar" />
+        <Avatar size={150} icon={<WalletOutlined  />} className="avatar" />
         <Typography.Title level={1} strong className="username">
           My Wallet
         </Typography.Title>
@@ -38,9 +38,9 @@ const WalletPage = () => {
         size="large"
         type="primary"
         className="profile-btn"
-        onClick={handleLogout}
+        
       >
-        Logout
+        Claim in UPI
       </Button>
     </Card>
   );

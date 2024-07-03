@@ -16,7 +16,7 @@ import FeatureDetailsLoan from './Components/FeatureDetailsLoan';
 import PostsHome from './Components/Blogs/PostsHome';
 import ComingSoon from './Components/ComingSoon';
 import WalletPage from './pages/WalletPage';
-
+import PostDetail from './Components/Blogs/PostDetail';
 
 const App = () => {
 
@@ -42,14 +42,18 @@ const App = () => {
       <Route path = '/wallet' element={<WalletPage />} />
       
 
-      <Route
+         <Route
             path="/campaigns"
             element={<SeparateLayout><FeatureDetailsLoan /></SeparateLayout>}
           />
 
-<Route
+          <Route
             path="/blogs"
             element={<SeparateLayout><PostsHome /></SeparateLayout>}
+          />
+           <Route
+            path="posts/:Id"
+            element={<SeparateLayout><PostDetail /></SeparateLayout>}
           />
     </Routes>
     <Footer />
