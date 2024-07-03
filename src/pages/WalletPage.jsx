@@ -31,7 +31,7 @@ const WalletPage = () => {
           Available Amount: 0.00 Coins
         </Typography.Text>
         <Typography.Text type="secondary">
-          Minimum Amount Withdrawn: 0.00 Coins
+          Minimum Amount to Claim: 1000.00 Coins
         </Typography.Text>
       </Flex>
       <Button
