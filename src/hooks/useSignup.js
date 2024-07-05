@@ -11,7 +11,18 @@ const [loading, setloading] = useState(null);
 const registerUser = async(values) => {
     if(values.password !== values.passwordConfirm){
         return setError ('Passwords are not the same');
-    }
+    }   
+
+     // Password complexity validation (you can customize this regex as needed as per the need)
+     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+     if (!passwordRegex.test(values.password)) {
+       return setError(
+         'Password must contain at least one lowercase letter, one uppercase letter, and one digit'
+       );
+     }
+    if (values.password.length < 10) {
+        return setError('Password must be at least 10 characters long');
+      }
 
     try {
         setError(null);
@@ -26,12 +37,12 @@ const registerUser = async(values) => {
         });
 
         const data = await res.json();
-        if(res.status===201){
+        if(res.status === 201){
             message.success(data.message);
             login(data.token, data.user);
         }
 
-        else if(res.status=== 400){
+        else if(res.status === 400){
             setError(data.message);
         }
         else{
