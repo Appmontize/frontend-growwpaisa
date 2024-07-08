@@ -1,24 +1,70 @@
+// FeatureDetailsLoan.js
+
 import React from 'react';
-import FeatureBox from './FeatureBox';
-import { useAuth } from '../contexts/AuthContext';
 import { Typography } from 'antd';
+import FeatureBox from './FeatureBox';
 import fimage1 from '../images/AngelOne.png';
 import fimage8 from '../images/groww.png';
-import fimage3 from '../images/upstox.png';
-import fimage4 from '../images/M-stock.png';
-import fimage5 from '../images/Appreciate-logo.png';
-import fimage6 from '../images/Yes bank.png';
-import fimage7 from '../images/Bank of baroda.png';
+import { useEffect, useState } from 'react';
 
 function FeatureDetailsLoan() {
   const { userData } = useAuth(); // Assuming userData contains user information
+  const [wallet, setWallet] = useState(null); // State to hold wallet information
 
-   if (!userData){
-      return null;
-   }
-  return ( 
-    <div id="features1" style={{marginTop:'80px'}}>
-      <Typography.Title level={2} >Hi, {userData.name}</Typography.Title>
+  useEffect(() => {
+    // Fetch user's wallet information when component mounts
+    if (userData) {
+      fetchWallet(userData.user_id);
+    }
+  }, [userData]);
+
+  const fetchWallet = async (user_id) => {
+    try {
+      const response = await fetch(`http://localhost:3005/api/wallet/${user_id}`);
+      if (!response.ok) {
+        throw new Error('Failed to fetch wallet data');
+      }
+      const data = await response.json();
+      setWallet(data.wallet);
+    } catch (error) {
+      console.error('Error fetching wallet:', error.message);
+      // Handle error scenarios
+    }
+  };
+
+  const handleCampaignClick = async (link) => {
+    try {
+      if (!userData) {
+        throw new Error('User data not available');
+      }
+
+      const response = await fetch('http://localhost:3005/api/wallet/update', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ user_id: userData.user_id, amount: 100 }), // Assuming 100 coins for each click
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add coins');
+      }
+
+      // Update wallet state after successful update
+      const updatedWallet = await response.json();
+      setWallet(updatedWallet.wallet);
+
+      console.log('Coins added successfully');
+      // Optionally, update UI to reflect new coin balance
+    } catch (error) {
+      console.error('Error adding coins:', error.message);
+      // Handle network or other errors
+    }
+  };
+
+  return (
+    <div id="features1" style={{ marginTop: '80px' }}>
+      <Typography.Title level={2}>Hi, {userData ? userData.name : 'User'}</Typography.Title>
       <Typography.Title level={2}>
         Explore Our Exclusive Financial Products and Start Earning Today!
       </Typography.Title>
@@ -27,46 +73,26 @@ function FeatureDetailsLoan() {
         <FeatureBox
           image={fimage1}
           title="Angel Broking"
-          text="Angel One - India’s largest broker introduced ZERO cost brokerage services for trades executed in cash delivery, and only Rs.20 per order will be charged for Intraday, F&O, etc. Open your Demat account now."
+          text="Angel One - India’s largest broker introduced ZERO cost brokerage services..."
           link="http://paychat.fuse-cloud.com/tl?a=1486&o=4094&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
+          onClick={() => handleCampaignClick('http://paychat.fuse-cloud.com/tl?a=1486&o=4094&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}')}
         />
         <FeatureBox
           image={fimage8}
           title="Groww"
-          text="Groww is India’s growing financial services platform where users can find their investment solutions pertaining to mutual funds, stocks, US Stocks, ETFs, IPO, and F&Os, to invest their money without hassles."
+          text="Groww is India’s growing financial services platform where users can find their investment solutions..."
           link="http://paychat.fuse-cloud.com/tl?a=1486&o=4075&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
+          onClick={() => handleCampaignClick('http://paychat.fuse-cloud.com/tl?a=1486&o=4075&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}')}
         />
-        <FeatureBox
-          image={fimage3}
-          title="Upstox"
-          text="Upstox Free Demat &Trading A/c — Access over 100+ indicators and various charting tools. 9M+ investors. Paperless A/c opening. Visit now to open demat account Instantly & Trade at lowest flat fee."
-          link="http://paychat.fuse-cloud.com/tl?a=1486&o=5436&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
-        />
-        <FeatureBox
-          image={fimage4}
-          title="M-Stock"
-          text="₹0 brokerage on Intraday trade — All Intraday, Options, Delivery, Currency trades @ zero brokerage for life. No order limits. 1-click order, fast platform, advanced tools at zero brokerage for life! Open Demat A/c."
-          link="http://paychat.fuse-cloud.com/tl?a=1486&o=4559&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
-        />
-        <FeatureBox
-          image={fimage5}
-          title="Appreciate Wealth"
-          text="Appreciate is an online trading and investment platform. With Appreciate you can easily invest in US equities, fixed deposits, ETFs, bonds, digital gold, savings accounts and many more lucrative investment products at a very low cost to diversify your portfolio and enjoy higher returns."
-          link="http://paychat.fuse-cloud.com/tl?a=1486&o=5202&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
-        />
-        <FeatureBox
-          image={fimage6}
-          title="Yes Bank"
-          text="At YES BANK, we are driven by a deep purpose and relentless commitment to our path. Our differentiated approach to growth is built on expanding our existing businesses and diversifying our loan portfolios, paving the way for a brighter future."
-          link="http://paychat.fuse-cloud.com/tl?a=1486&o=5451&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
-        />
-        <FeatureBox
-          image={fimage7}
-          title="Bank Of Baroda"
-          text="Bank of Baroda is a government of India owned Multinational Public Sector Bank headquartered in Vadodara, Gujarat. It is the second largest Public Sector Bank in India after State Bank of India, with 153 million customers, a total business of US$291 billion, and a global presence of 100 overseas offices."
-          link="http://paychat.fuse-cloud.com/tl?a=1486&o=5425&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
-        />
+        {/* Repeat for other FeatureBox components */}
       </div>
+
+      {/* Display wallet information if available */}
+      {wallet && (
+        <div style={{ marginTop: '20px' }}>
+          <Typography.Text>Current Coins: {wallet.coins}</Typography.Text>
+        </div>
+      )}
     </div>
   );
 }

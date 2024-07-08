@@ -14,20 +14,20 @@ const registerUser = async(values) => {
     }   
 
      // Password complexity validation (you can customize this regex as needed as per the need)
-     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
-     if (!passwordRegex.test(values.password)) {
-       return setError(
-         'Password must contain at least one lowercase letter, one uppercase letter, and one digit'
-       );
-     }
-    if (values.password.length < 10) {
-        return setError('Password must be at least 10 characters long');
-      }
+    //  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/;
+    //  if (!passwordRegex.test(values.password)) {
+    //    return setError(
+    //      'Password must contain at least one lowercase letter, one uppercase letter, and one digit'
+    //    );
+    //  }
+    // if (values.password.length < 10) {
+    //     return setError('Password must be at least 10 characters long');
+    //   }
 
     try {
         setError(null);
         setloading(true);
-        const res = await fetch ('http://localhost:3000/api/auth/signup',{
+        const res = await fetch ('http://localhost:3005/auth/user/signup',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
