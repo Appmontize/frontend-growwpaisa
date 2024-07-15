@@ -22,7 +22,7 @@ function FeatureDetailsLoan() {
 
   const fetchWallet = async (user_id) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/wallet/${user_id}`);
+      const response = await fetch(`https://api.growwpaisa.com/api/wallet/${user_id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch wallet data');
       }
@@ -40,7 +40,7 @@ function FeatureDetailsLoan() {
         throw new Error('User data not available');
       }
 
-      const response = await fetch('http://localhost:3000/api/wallet/update', {
+      const response = await fetch('https://api.growwpaisa.com/api/wallet/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

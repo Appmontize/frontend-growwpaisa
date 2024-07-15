@@ -13,7 +13,7 @@ const loginUser = async(values) => {
     try {
         setError(null);
         setloading(true);
-        const res = await fetch ('http://localhost:3000/auth/user/login',{
+        const res = await fetch ('https://api.growwpaisa.com/auth/user/login',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
