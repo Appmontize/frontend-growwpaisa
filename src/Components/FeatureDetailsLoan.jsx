@@ -6,6 +6,8 @@ import FeatureBox from './FeatureBox';
 import fimage1 from '../images/AngelOne.png';
 import fimage8 from '../images/groww.png';
 import { useEffect, useState } from 'react';
+import {useAuth} from '../contexts/AuthContext.jsx';
+
 
 function FeatureDetailsLoan() {
   const { userData } = useAuth(); // Assuming userData contains user information
@@ -20,7 +22,7 @@ function FeatureDetailsLoan() {
 
   const fetchWallet = async (user_id) => {
     try {
-      const response = await fetch(`http://localhost:3005/api/wallet/${user_id}`);
+      const response = await fetch(`http://localhost:3000/api/wallet/${user_id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch wallet data');
       }
@@ -38,7 +40,7 @@ function FeatureDetailsLoan() {
         throw new Error('User data not available');
       }
 
-      const response = await fetch('http://localhost:3005/api/wallet/update', {
+      const response = await fetch('http://localhost:3000/api/wallet/update', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
