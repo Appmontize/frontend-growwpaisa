@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Flex, Typography } from "antd";
+  import { Avatar, Button, Card, Flex, Typography } from "antd";
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { UserOutlined } from "@ant-design/icons";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for naviga
 const Dashboard = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook
   const { userData, logout } = useAuth();
-
+  
   const handleLogout = async () => {
     await logout();
     navigate("/"); // Redirect to home page after logout
