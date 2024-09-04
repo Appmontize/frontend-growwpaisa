@@ -1,23 +1,18 @@
-// FeatureDetailsLoan.js
-
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography } from 'antd';
 import FeatureBox from './FeatureBox';
-import fimage1 from '../images/AngelOne.png';
-import fimage8 from '../images/groww.png';
-import { useEffect, useState } from 'react';
-import {useAuth} from '../contexts/AuthContext.jsx';
-
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 function FeatureDetailsLoan() {
   const { userData } = useAuth(); // Assuming userData contains user information
   const [wallet, setWallet] = useState(null); // State to hold wallet information
+  const [campaigns, setCampaigns] = useState([]); // State to hold campaign data
 
   useEffect(() => {
-    // Fetch user's wallet information when component mounts
     if (userData) {
       fetchWallet(userData.user_id);
     }
+    fetchCampaigns();
   }, [userData]);
 
   const fetchWallet = async (user_id) => {
@@ -30,39 +25,65 @@ function FeatureDetailsLoan() {
       setWallet(data.wallet);
     } catch (error) {
       console.error('Error fetching wallet:', error.message);
-      // Handle error scenarios
+      setWallet(null);
     }
   };
 
-  const handleCampaignClick = async (link) => {
+  const fetchCampaigns = async () => {
     try {
-      if (!userData) {
-        throw new Error('User data not available');
+      const response = await fetch('https://api.growwpaisa.com/campaign/fetch');
+      if (!response.ok) {
+        throw new Error('Failed to fetch campaigns');
       }
+      const data = await response.json();
+      setCampaigns(data || []); // Assuming data is an array of campaigns
+    } catch (error) {
+      console.error('Error fetching campaigns:', error.message);
+      setCampaigns([]);
+    }
+  };
 
-      const response = await fetch('https://api.growwpaisa.com/api/wallet/update', {
+  const handleCampaignClick = async (campaign_id, url) => {
+    try {
+      console.log('Sending request to generate click ID for user:', userData.user_id, 'and campaign:', campaign_id);
+      const response = await fetch('https://api.growwpaisa.com/click/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ user_id: userData.user_id, amount: 100 }), // Assuming 100 coins for each click
+        body: JSON.stringify({ user_id: userData.user_id, campaign_id }),
       });
-
+  
       if (!response.ok) {
-        throw new Error('Failed to add coins');
+        throw new Error('Failed to generate click ID');
       }
-
-      // Update wallet state after successful update
-      const updatedWallet = await response.json();
-      setWallet(updatedWallet.wallet);
-
-      console.log('Coins added successfully');
-      // Optionally, update UI to reflect new coin balance
+  
+      const data = await response.json();
+      console.log('Generated Click ID:', data.click_id);
+  
+      // Fire the postback with the generated click ID
+      await firePostback(data.click_id);
+  
+      // Open the URL after click ID is successfully generated
+      window.open(url, '_blank');
     } catch (error) {
-      console.error('Error adding coins:', error.message);
-      // Handle network or other errors
+      console.error('Error generating click ID:', error);
     }
   };
+  
+  // Function to fire the postback to the backend
+  const firePostback = async (click_id) => {
+    try {
+      const postbackResponse = await fetch(`https://api.growwpaisa.com/postback/MMPPostback?tid=${click_id}`);
+      if (!postbackResponse.ok) {
+        throw new Error('Failed to fire postback');
+      }
+      console.log('Postback fired successfully');
+    } catch (error) {
+      console.error('Error firing postback:', error);
+    }
+  };
+  
 
   return (
     <div id="features1" style={{ marginTop: '80px' }}>
@@ -72,24 +93,22 @@ function FeatureDetailsLoan() {
       </Typography.Title>
 
       <div className="a-container">
-        <FeatureBox
-          image={fimage1}
-          title="Angel Broking"
-          text="Angel One - India’s largest broker introduced ZERO cost brokerage services..."
-          link="http://paychat.fuse-cloud.com/tl?a=1486&o=4094&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
-          onClick={() => handleCampaignClick('http://paychat.fuse-cloud.com/tl?a=1486&o=4094&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}')}
-        />
-        <FeatureBox
-          image={fimage8}
-          title="Groww"
-          text="Groww is India’s growing financial services platform where users can find their investment solutions..."
-          link="http://paychat.fuse-cloud.com/tl?a=1486&o=4075&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}"
-          onClick={() => handleCampaignClick('http://paychat.fuse-cloud.com/tl?a=1486&o=4075&aff_click_id={AFF_CLICK_ID}&sub_affid={SUB_AFFID}&device_id={DEVICE_ID}')}
-        />
-        {/* Repeat for other FeatureBox components */}
+        {Array.isArray(campaigns) && campaigns.length > 0 ? (
+          campaigns.map((campaign) => (
+            <FeatureBox
+              key={campaign.id} // Use unique id for the key
+              image={campaign.image}
+              title={campaign.title}
+              text={campaign.text}
+              link={campaign.link}
+              onClick={() => handleCampaignClick(campaign.id, campaign.link)}
+            />
+          ))
+        ) : (
+          <Typography.Text>No campaigns available</Typography.Text>
+        )}
       </div>
 
-      {/* Display wallet information if available */}
       {wallet && (
         <div style={{ marginTop: '20px' }}>
           <Typography.Text>Current Coins: {wallet.coins}</Typography.Text>

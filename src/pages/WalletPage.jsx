@@ -1,34 +1,30 @@
-import { Avatar, Button, Card, Flex, Typography } from "antd";
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { UserOutlined, WalletOutlined  } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom"; 
+import { Avatar, Button, Card, Typography, Flex } from "antd";
+import { WalletOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const WalletPage = () => {
-    const navigate = useNavigate(); // Initialize useNavigate hook
+  const navigate = useNavigate();
+  const { userWallet, logout } = useAuth();
 
-  const { userData, logout } = useAuth();
+  // Format wallet amount to two decimal places
+  const formattedWallet = userWallet ? userWallet.toFixed(2) : '0.00';
 
   const handleLogout = async () => {
-    navigate("/");
     await logout();
+    navigate("/");
   };
-
-  // Check if userData exists before accessing its properties
-  if (!userData) {
-    // You can return a loading indicator or handle this case as per your UI needs
-    return <div>Loading...</div>;
-  }
 
   return (
     <Card className="profile-card">
       <Flex vertical gap="small" align="center">
-        <Avatar size={150} icon={<WalletOutlined  />} className="avatar" />
+        <Avatar size={150} icon={<WalletOutlined />} className="avatar" />
         <Typography.Title level={1} strong className="username">
           My Wallet
         </Typography.Title>
         <Typography.Text type="secondary">
-          Available Amount: 0.00 Coins
+          Available Amount: {formattedWallet} Coins
         </Typography.Text>
         <Typography.Text type="secondary">
           Minimum Amount to Claim: 1000.00 Coins
@@ -38,7 +34,6 @@ const WalletPage = () => {
         size="large"
         type="primary"
         className="profile-btn"
-        
       >
         Claim in UPI
       </Button>

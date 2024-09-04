@@ -3,10 +3,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext'; // Adjust the path as per your file structure
 import logo from '../images/apnaloan (14).png';
 import { Avatar, Menu, Dropdown } from 'antd';
-import { UserOutlined, LogoutOutlined, ProfileOutlined, WalletOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 function Navbar() {
-  const { isAuthenticated, logout, userData } = useAuth(); // Assuming userData contains user information
+  const { isAuthenticated, logout, userWallet } = useAuth(); // Include userWallet from AuthContext
 
   const [nav, setNav] = useState(false);
 
@@ -60,14 +60,14 @@ function Navbar() {
           <RouterLink to="/">Home</RouterLink>
         </li>
         <li>
-        <a href="http://blogs.growwpaisa.com/">Blogs</a>
+          <a href="http://blogs.growwpaisa.com/">Blogs</a>
         </li>
         <li>
           <RouterLink to="/register">Campaigns</RouterLink>
         </li>
         {isAuthenticated && (
           <li>
-            <RouterLink to="/wallet">Wallet: 0.00 coins</RouterLink>
+            <RouterLink to="/wallet">Wallet: {userWallet.toFixed(2)} coins</RouterLink>
           </li>
         )}
         <li>

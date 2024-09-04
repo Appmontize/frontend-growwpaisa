@@ -1,47 +1,47 @@
-import {useState} from 'react';
-import {message } from 'antd';
-import {useAuth} from '../contexts/AuthContext.jsx';
-
+import { useState } from 'react';
+import { message } from 'antd';
+import { useAuth } from '../contexts/AuthContext.jsx';
 
 const useLogin = () => {
-const {login}= useAuth();
-const [error, setError] = useState(null);
-const [loading, setloading] = useState(null);
+  const { login, setUserWallet } = useAuth(); // Assume setUserWallet is a function to update wallet info
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-const loginUser = async(values) => {
-    
+  const loginUser = async (values) => {
     try {
-        setError(null);
-        setloading(true);
-        const res = await fetch ('https://api.growwpaisa.com/auth/user/login',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(values),
+      setError(null);
+      setLoading(true);
+      const res = await fetch('https://api.growwpaisa.com/auth/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
 
-        });
+      const data = await res.json();
 
-        const data = await res.json();
-        if(res.status===200){
-            message.success(data.message);
-            login(data.token, data.user);
-        }
+      if (res.status === 200) {
+        message.success(data.message);
+        login(data.token, data.user);
 
-        else if(res.status=== 400){
-            setError(data.message);
-        }
-        else{
-            message.error('Registration failed');
-        }
+        // Fetch wallet details after successful login
+        const walletRes = await fetch(`https://api.growwpaisa.com/api/wallet/${data.user.user_id}`);
+        const walletData = await walletRes.json();
+        setUserWallet(walletData.amount); // Update wallet info in the context or state
+      } else if (res.status === 400) {
+        setError(data.message);
+      } else {
+        message.error('Login failed');
+      }
     } catch (error) {
-        message.error(error);
-    } finally{
-        setloading(false);
+      message.error('An error occurred');
+    } finally {
+      setLoading(false);
     }
-};
+  };
 
-  return {loading, error, loginUser};
-}
+  return { loading, error, loginUser };
+};
 
 export default useLogin;
