@@ -4,6 +4,7 @@ import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 function FeatureBox(props) {
   const [shareText, setShareText] = useState('Share on Whatsapp');
+  const [buttonText, setButtonText] = useState('Share on Whatsapp'); // State for the button text
 
   const handleExternalLink = () => {
     // First, call the onClick handler passed from the parent component
@@ -18,8 +19,12 @@ function FeatureBox(props) {
     event.stopPropagation(); // Prevent triggering handleExternalLink
     navigator.clipboard.writeText(props.link)
       .then(() => {
-        setShareText('Link copied');
-        setTimeout(() => setShareText('Share on Whatsapp'), 3000);
+        setShareText('Link copied'); // Update the text inside the feature box
+        setButtonText('Link copied'); // Update the button text
+        setTimeout(() => {
+          setShareText('Share on Whatsapp');
+          setButtonText('Share on Whatsapp');
+        }, 3000); // Revert text after 3 seconds
       })
       .catch((err) => {
         console.error('Failed to copy text: ', err);
@@ -27,19 +32,38 @@ function FeatureBox(props) {
   };
 
   return (
-    <div className='a-box' style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }} onClick={handleExternalLink}>
-      <div className='a-b-img'>
-        <img src={props.image} alt='' />
-        <div className='a-b-text'>
-          <h2>{props.title}</h2>
-          <p>{props.text}</p>
-          <p>Click Me</p>
-          <p onClick={handleShareOnWhatsapp} style={{ display: 'flex', alignItems: 'center' }}>
-            <FontAwesomeIcon icon={faWhatsapp} style={{ marginRight: '8px', color: 'green' }} />
-            {shareText}
-          </p>
+    <div>
+      {/* Main Feature Box */}
+      <div className='a-box' style={{ textDecoration: 'none', color: 'inherit', cursor: 'pointer' }} onClick={handleExternalLink}>
+        <div className='a-b-img'>
+          <img src={props.image} alt='' />
+          <div className='a-b-text'>
+            <h2>{props.title}</h2>
+            <p>{props.text}</p>
+            <p>Click Me</p>
+          </div>
         </div>
       </div>
+      
+      {/* Share on Whatsapp Button Below the Box */}
+      <button 
+        onClick={handleShareOnWhatsapp} 
+        style={{ 
+          marginTop: '10px', 
+          marginLeft: '30px',
+          backgroundColor: 'green', 
+          color: 'white', 
+          padding: '10px 20px', 
+          border: 'none', 
+          borderRadius: '5px', 
+          cursor: 'pointer',
+          display: 'block',
+          width: '80%', // Adjust width as needed
+          textAlign: 'center'
+        }}
+      >
+        {buttonText} {/* Display the button text based on state */}
+      </button>
     </div>
   );
 }

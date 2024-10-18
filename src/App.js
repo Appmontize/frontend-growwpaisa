@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import './App.css';
 import Register from './Auth/Register';
 import Login from './Auth/Login';
-import Dashboard from './pages/Dashboard';
+import Profile from './pages/Profile';
 import { useAuth } from './contexts/AuthContext';
 //asdamsimdoasnm
 import Navbar from './Components/Navbar';
@@ -16,7 +16,6 @@ import FeatureDetailsLoan from './Components/FeatureDetailsLoan';
 import PostsHome from './Components/Blogs/PostsHome';
 import ComingSoon from './Components/ComingSoon';
 import WalletPage from './pages/WalletPage';
-import PostDetail from './Components/Blogs/PostDetail';
 
 const App = () => {
 
@@ -38,8 +37,9 @@ const App = () => {
     <Route path="/ComingSoon" element={<ComingSoon/> }/>
       <Route path = '/register' element={!isAuthenticated ? <Register /> : <Navigate to= '/campaigns'/>} />
       <Route path = '/login' element={!isAuthenticated ? <Login /> : <Navigate to ="/campaigns"/>} />
-      <Route path = '/dashboard' element={isAuthenticated ? <Dashboard /> : <Login/>} />
+      <Route path = '/profile' element={isAuthenticated ? <Profile /> : <Login/>} />
       <Route path = '/wallet' element={<WalletPage />} />
+      <Route path = '/profile' element = {<Profile />} />
       
 
          <Route
@@ -51,14 +51,15 @@ const App = () => {
             path="/blogs"
             element={<SeparateLayout><PostsHome /></SeparateLayout>}
           />
-           <Route
-            path="posts/:Id"
-            element={<SeparateLayout><PostDetail /></SeparateLayout>}
-          />
+           
     </Routes>
     <Footer />
+    
     </div>
+    
   </Router>
+
+  
   
 }
 

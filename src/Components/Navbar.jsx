@@ -36,7 +36,7 @@ function Navbar() {
   const menu = (
     <Menu>
       <Menu.Item key="dashboard">
-        <RouterLink to="/dashboard">My Profile</RouterLink>
+        <RouterLink to="/profile">My Profile</RouterLink>
       </Menu.Item>
       <Menu.Item key="logout" onClick={handleLogout}>
         Logout
