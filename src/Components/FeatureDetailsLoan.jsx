@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography } from 'antd';
 import FeatureBox from './FeatureBox';
 import { useAuth } from '../contexts/AuthContext.jsx';
+import HeaderCampaigns from './HeaderCampaign.jsx';
 
 function FeatureDetailsLoan() {
   const { userData } = useAuth(); // Assuming userData contains user information
@@ -92,6 +93,8 @@ function FeatureDetailsLoan() {
         Explore Our Exclusive Financial Products and Start Earning Today!
       </Typography.Title>
 
+          {/* Pass the first 4 campaigns to HeaderCampaigns */}
+          <HeaderCampaigns campaigns={campaigns.slice(0, 4)} />
       <div className="a-container">
         {Array.isArray(campaigns) && campaigns.length > 0 ? (
           campaigns.map((campaign) => (

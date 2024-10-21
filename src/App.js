@@ -16,6 +16,7 @@ import FeatureDetailsLoan from './Components/FeatureDetailsLoan';
 import PostsHome from './Components/Blogs/PostsHome';
 import ComingSoon from './Components/ComingSoon';
 import WalletPage from './pages/WalletPage';
+import HeaderCampaigns from './Components/HeaderCampaign';
 
 const App = () => {
 
@@ -23,9 +24,11 @@ const App = () => {
   const elementsForHomePage =[ 
    
     <Header key = "header"/>,
+
      <Offer key = "offer"/>,
+     
      <Contact key = "contact"/>,
- 
+    
  
    ];
 
