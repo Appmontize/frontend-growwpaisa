@@ -4,7 +4,7 @@ function offer() {
   return (
     <div id='offer'>
         <div className='pr-heading'>
-            <h1>We are here to help you with various financial services with products.</h1>
+            <h1>Create your account to see more campaigns and earn coins in your wallet by completing tasks.</h1>
             <p className='details'></p>
           
             </div>    
