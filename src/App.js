@@ -17,6 +17,8 @@ import PostsHome from './Components/Blogs/PostsHome';
 import ComingSoon from './Components/ComingSoon';
 import WalletPage from './pages/WalletPage';
 import HeaderCampaigns from './Components/HeaderCampaign';
+import StepsToEarn from './Components/StepsToEarn';
+import FAQ from './Components/FAQ';
 
 const App = () => {
 
@@ -24,10 +26,9 @@ const App = () => {
   const elementsForHomePage =[ 
    
     <Header key = "header"/>,
-
-     <Offer key = "offer"/>,
-     
-     <Contact key = "contact"/>,
+    <StepsToEarn key= "steps" />,
+    <HeaderCampaigns key ="headerCampaigns" />, 
+    <FAQ key= 'faq' />,    
     
  
    ];

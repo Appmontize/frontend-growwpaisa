@@ -93,8 +93,6 @@ function FeatureDetailsLoan() {
         Explore Our Exclusive Financial Products and Start Earning Today!
       </Typography.Title>
 
-          {/* Pass the first 4 campaigns to HeaderCampaigns */}
-          <HeaderCampaigns campaigns={campaigns.slice(0, 4)} />
       <div className="a-container">
         {Array.isArray(campaigns) && campaigns.length > 0 ? (
           campaigns.map((campaign) => (
