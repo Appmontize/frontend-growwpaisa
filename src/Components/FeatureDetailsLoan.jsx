@@ -112,7 +112,6 @@ function FeatureDetailsLoan() {
 
       {wallet && (
         <div style={{ marginTop: '20px' }}>
-          <Typography.Text>Current Coins: {wallet.coins}</Typography.Text>
         </div>
       )}
     </div>

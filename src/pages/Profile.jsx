@@ -29,9 +29,7 @@ const Profile = () => {
         <Typography.Text type="secondary" strong>
           Email: {userData.email}
         </Typography.Text>
-        <Typography.Text type="secondary">
-          Role: {userData.role}
-        </Typography.Text>
+        
       </Flex>
       <Button
         size="large"

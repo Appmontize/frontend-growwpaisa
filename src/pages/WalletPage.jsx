@@ -29,14 +29,19 @@ const WalletPage = () => {
         <Typography.Text type="secondary">
           Minimum Amount to Claim: 1000.00 Coins
         </Typography.Text>
+        <Typography.Text type="secondary">
+          Coins Conversion: 100 coins = 1 INR
+        </Typography.Text>
       </Flex>
-      <Button
-        size="large"
-        type="primary"
-        className="profile-btn"
-      >
+
+      <Button size="large" type="primary" className="profile-btn">
         Claim in UPI
       </Button>
+
+      {/* Red message below the button */}
+      <p className="text-red-500 mt-2 font-bold text-center">
+        (Claim in UPI is coming shortly, till then earn as much coins as you can.)
+      </p>
     </Card>
   );
 };

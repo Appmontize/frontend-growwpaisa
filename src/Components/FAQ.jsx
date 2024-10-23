@@ -9,19 +9,19 @@ const FAQ = () => {
     },
     {
       question: "How do I create an account?",
-      answer: "You can create an account by signing up on our website and providing your basic information.",
+      answer: "You can create an account by signing up on our website and providing your name, email and password",
     },
     {
       question: "What types of tasks can I complete?",
-      answer: "Tasks may include surveys, watching videos, and other activities that reward you with coins.",
+      answer: "Tasks may include installing apps, creating accounts and other activities that reward you with coins.",
     },
     {
       question: "How do I redeem my coins?",
-      answer: "You can redeem your coins for cash or various rewards in the rewards section of your account.",
+      answer: "You can redeem your coins for real cash in UPI (coming soon) in the wallet section of your account.",
     },
     {
-      question: "Is there a referral program?",
-      answer: "Yes, you can earn additional rewards by referring friends to the platform.",
+      question: "How many coins are equal to 1 INR ?",
+      answer: "100 coins are equal to 1 INR. ",
     },
   ];
 
