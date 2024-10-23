@@ -1,5 +1,5 @@
 import React from 'react';
-import gifSource from '../videos/piggy.gif'; // Import the GIF file
+import gifSource from '../videos/homepage.gif'; // Import the GIF file
 import Typewriter from 'react-typewriter-effect'; // Import the typewriter effect
 import { Link } from 'react-router-dom'; // Import Link for routing
 

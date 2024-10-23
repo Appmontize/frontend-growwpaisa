@@ -19,6 +19,7 @@ import WalletPage from './pages/WalletPage';
 import HeaderCampaigns from './Components/HeaderCampaign';
 import StepsToEarn from './Components/StepsToEarn';
 import FAQ from './Components/FAQ';
+import Testimonials from './Components/Testimonials';
 
 const App = () => {
 
@@ -28,6 +29,7 @@ const App = () => {
     <Header key = "header"/>,
     <StepsToEarn key= "steps" />,
     <HeaderCampaigns key ="headerCampaigns" />, 
+    <Testimonials key = "testimonials" />,
     <FAQ key= 'faq' />,    
     
  
