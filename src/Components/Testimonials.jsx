@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
+import image1 from '../images/rahulpanchal.jpeg';
+import image2 from '../images/mohit sindhu.jpeg';
+import image3 from '../images/varunsharma.jpeg';
+import image4 from '../images/vishalsharma.jpeg'
 
 // Import Swiper core and required modules
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -11,25 +15,25 @@ const testimonials = [
     id: 1,
     name: 'Rahul Panchal',
     feedback: '"Growwpaisa has transformed my approach to budgeting and saving!"',
-    image: 'https://media.licdn.com/dms/image/v2/D4D03AQGRfpCoxh7cjg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1700562187638?e=1735171200&v=beta&t=vE74fwy9yNbSeeymRp9w3y_AgZElUjdfez0fTf0gMlU',
+    image: image1,
   },
   {
     id: 2,
     name: 'Vishal Sharma',
     feedback: '"The financial solutions provided by Growwpaisa are incredibly effective and reliable!"',
-    image: 'https://media.licdn.com/dms/image/v2/C4D03AQH5aXvklRVsOA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1651474821203?e=1735171200&v=beta&t=CDDzrJiEGtpzxvuZhUcK0rr-w6dkoaKutHj6dfKV-38',
+    image: image4,
   },
   {
     id: 3,
     name: 'Varun Sharma',
     feedback: '"With Growwpaisa, I’ve finally taken control of my finances and I couldn’t be happier!"',
-    image: 'https://media.licdn.com/dms/image/v2/D5603AQENi1_sIe2gVQ/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1728287429412?e=1735171200&v=beta&t=8ZFaNc_y5KuFGY5H1DHotS6wjgdVYF8fXPe2cyJvi2k',
+    image: image3,
   },
   {
     id: 4,
     name: 'Mohit Sindhu',
     feedback: '"Thanks to Growwpaisa, I’ve achieved my financial goals faster than I ever thought possible!"',
-    image: 'https://media.licdn.com/dms/image/v2/C5603AQHJPEw9UpaWIA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1657622101901?e=1735171200&v=beta&t=9huw0CJUwNNQNqHKvGNI_qkhOW0N8Wf1aXhTm6dCt8o',
+    image: image2,
   },
   // Add more testimonials if needed
 ];
