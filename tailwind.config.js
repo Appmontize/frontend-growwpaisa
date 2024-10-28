@@ -4,6 +4,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        lavender: '#cdbdff', // Add custom lavender color
+      },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'], // Add Poppins font
       },

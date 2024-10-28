@@ -11,7 +11,7 @@ body{
   align-items: center;
   justify-content: center;
   height:100vh;
-  background:#cdbdff ; */
+  background:#F7F7F7 ; */
 
 
 .footer-body {
@@ -187,7 +187,7 @@ body{
     margin:0px;
     overflow-x: hidden;
     padding: 0px;
-    background-color: #cdbdff;
+    background-color: #F7F7F7;
     font-family: 'Lato', sans-serif;
     width: 100vw;
 }
@@ -531,7 +531,7 @@ Chatgpt code below */
         align-items: center;
         justify-content: center;
         padding-top: 40px;
-        background-color: #cdbdff;
+        background-color: #F7F7F7;
         font-family: "roboto";
 
 }

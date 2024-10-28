@@ -40,30 +40,13 @@ function FeatureBox(props) {
           <div className='a-b-text'>
             <h2>{props.title}</h2>
             <p>{props.text}</p>
-            <p>Click Me</p>
+            <p >Click to Install</p>
           </div>
         </div>
       </div>
       
       {/* Share on Whatsapp Button Below the Box */}
-      <button 
-        onClick={handleShareOnWhatsapp} 
-        style={{ 
-          marginTop: '10px', 
-          marginLeft: '30px',
-          backgroundColor: 'green', 
-          color: 'white', 
-          padding: '10px 20px', 
-          border: 'none', 
-          borderRadius: '5px', 
-          cursor: 'pointer',
-          display: 'block',
-          width: '80%', // Adjust width as needed
-          textAlign: 'center'
-        }}
-      >
-        {buttonText} {/* Display the button text based on state */}
-      </button>
+    
     </div>
   );
 }

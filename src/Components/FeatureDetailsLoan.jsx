@@ -3,6 +3,9 @@ import { Typography } from 'antd';
 import FeatureBox from './FeatureBox';
 import { useAuth } from '../contexts/AuthContext.jsx';
 import HeaderCampaigns from './HeaderCampaign.jsx';
+import StepsToEarn from './StepsToEarn.jsx';
+import CampaignSteps from './CampaignSteps.jsx';
+
 
 function FeatureDetailsLoan() {
   const { userData } = useAuth(); // Assuming userData contains user information
@@ -87,12 +90,18 @@ function FeatureDetailsLoan() {
   
 
   return (
-    <div id="features1" style={{ marginTop: '80px' }}>
-      <Typography.Title level={2}>Hi, {userData ? userData.name : 'User'}</Typography.Title>
-      <Typography.Title level={2}>
-        Explore Our Exclusive Financial Products and Start Earning Today!
-      </Typography.Title>
+    <div id="features1" className="mt-20"> {/* Replaced inline style with Tailwind margin class */}
+  <h2 className="text-3xl font-bold text-gray-800 mb-4 font-poppins"> {/* Title for user name */}
+    Hi, {userData ? userData.name : 'User'}
+  </h2>
+  <h2 className="text-3xl font-bold text-gray-800 font-poppins"> {/* Title for the main message */}
+    Explore Our Exclusive Financial Products and Start Earning Today!
+  </h2>
 
+      <CampaignSteps />
+      <h2 className="text-center text-4xl font-bold text-gray-800 mb-12 font-poppins">
+        Easy Tasks
+      </h2>
       <div className="a-container">
         {Array.isArray(campaigns) && campaigns.length > 0 ? (
           campaigns.map((campaign) => (
