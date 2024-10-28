@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { Typography } from 'antd';
+import { Typography } from 'antd'; // Optional: You can remove if not needed
 import FeatureBox from './FeatureBox';
 import { useAuth } from '../contexts/AuthContext.jsx';
-import HeaderCampaigns from './HeaderCampaign.jsx';
-import StepsToEarn from './StepsToEarn.jsx';
 import CampaignSteps from './CampaignSteps.jsx';
 
-
 function FeatureDetailsLoan() {
-  const { userData } = useAuth(); // Assuming userData contains user information
-  const [wallet, setWallet] = useState(null); // State to hold wallet information
+  const { userData } = useAuth(); // Get user data from Auth context
+  const [wallet, setWallet] = useState(null); // State to hold wallet data
   const [campaigns, setCampaigns] = useState([]); // State to hold campaign data
+  const [filteredCampaigns, setFilteredCampaigns] = useState([]); // For filtered campaigns
+  const [selectedCategory, setSelectedCategory] = useState('All'); // Filter state
+
+  // IDs of campaigns by category
+  const categories = {
+    Demat: [7, 9, 16, 10, 17, 18, 24], // IDs of Demat campaigns
+    'Credit Card': [23, 19], // IDs of Credit Card campaigns
+    Loan: [25, 27],
+    Wallet: [22, 26], // IDs of Loan campaigns
+  };
 
   useEffect(() => {
     if (userData) {
@@ -22,9 +29,7 @@ function FeatureDetailsLoan() {
   const fetchWallet = async (user_id) => {
     try {
       const response = await fetch(`https://api.growwpaisa.com/api/wallet/${user_id}`);
-      if (!response.ok) {
-        throw new Error('Failed to fetch wallet data');
-      }
+      if (!response.ok) throw new Error('Failed to fetch wallet data');
       const data = await response.json();
       setWallet(data.wallet);
     } catch (error) {
@@ -36,77 +41,95 @@ function FeatureDetailsLoan() {
   const fetchCampaigns = async () => {
     try {
       const response = await fetch('https://api.growwpaisa.com/campaign/fetch');
-      if (!response.ok) {
-        throw new Error('Failed to fetch campaigns');
-      }
+      if (!response.ok) throw new Error('Failed to fetch campaigns');
       const data = await response.json();
-      setCampaigns(data || []); // Assuming data is an array of campaigns
+      setCampaigns(data || []);
+      setFilteredCampaigns(data || []); // Initialize with all campaigns
     } catch (error) {
       console.error('Error fetching campaigns:', error.message);
       setCampaigns([]);
+      setFilteredCampaigns([]);
     }
   };
 
-  const handleCampaignClick = async (campaign_id, url) => {
+  const handleCampaignClick = async (campaignId, link) => {
     try {
-      console.log('Sending request to generate click ID for user:', userData.user_id, 'and campaign:', campaign_id);
       const response = await fetch('https://api.growwpaisa.com/click/generate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ user_id: userData.user_id, campaign_id }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userData.user_id, campaign_id: campaignId }),
       });
-  
-      if (!response.ok) {
-        throw new Error('Failed to generate click ID');
-      }
-  
+
+      if (!response.ok) throw new Error('Failed to generate click ID');
       const data = await response.json();
       console.log('Generated Click ID:', data.click_id);
-  
+
       // Fire the postback with the generated click ID
       await firePostback(data.click_id);
-  
-      // Open the URL after click ID is successfully generated
-      window.open(url, '_blank');
+      window.open(link, '_blank'); // Open campaign link
     } catch (error) {
-      console.error('Error generating click ID:', error);
+      console.error('Error generating click ID:', error.message);
     }
   };
-  
-  // Function to fire the postback to the backend
+
   const firePostback = async (click_id) => {
     try {
-      const postbackResponse = await fetch(`https://api.growwpaisa.com/postback/MMPPostback?tid=${click_id}`);
-      if (!postbackResponse.ok) {
-        throw new Error('Failed to fire postback');
-      }
+      const response = await fetch(`https://api.growwpaisa.com/postback/MMPPostback?tid=${click_id}`);
+      if (!response.ok) throw new Error('Failed to fire postback');
       console.log('Postback fired successfully');
     } catch (error) {
-      console.error('Error firing postback:', error);
+      console.error('Error firing postback:', error.message);
     }
   };
-  
+
+  const handleFilterChange = (category) => {
+    setSelectedCategory(category); // Set the selected category
+    if (category === 'All') {
+      setFilteredCampaigns(campaigns); // Show all campaigns
+    } else {
+      const filtered = campaigns.filter((campaign) =>
+        categories[category].includes(campaign.id)
+      );
+      setFilteredCampaigns(filtered);
+    }
+  };
 
   return (
-    <div id="features1" className="mt-20"> {/* Replaced inline style with Tailwind margin class */}
-  <h2 className="text-3xl font-bold text-gray-800 mb-4 font-poppins"> {/* Title for user name */}
-    Hi, {userData ? userData.name : 'User'}
-  </h2>
-  <h2 className="text-3xl font-bold text-gray-800 font-poppins"> {/* Title for the main message */}
-    Explore Our Exclusive Financial Products and Start Earning Today!
-  </h2>
+    <div id="features1" className="mt-20 px-6">
+      <h2 className="text-3xl font-bold text-gray-800 mb-4 font-poppins">
+        Hi, {userData ? userData.name : 'User'}
+      </h2>
+      <h2 className="text-3xl font-bold text-gray-800 font-poppins">
+        Explore Our Exclusive Financial Products and Start Earning Today!
+      </h2>
 
       <CampaignSteps />
+
       <h2 className="text-center text-4xl font-bold text-gray-800 mb-12 font-poppins">
         Easy Tasks
       </h2>
-      <div className="a-container">
-        {Array.isArray(campaigns) && campaigns.length > 0 ? (
-          campaigns.map((campaign) => (
+
+     {/* Filter Buttons */}
+<div className="flex justify-center gap-4 mb-8">
+  {['All', 'Demat', 'Credit Card', 'Loan', 'Wallet'].map((category) => (
+    <button
+      key={category}
+      className={`px-6 py-3 rounded-lg text-white font-semibold shadow-md transition-transform duration-300 ease-in-out ${
+        selectedCategory === category ? 'bg-cyan-600 scale-105' : 'bg-gray-500 hover:bg-cyan-800'
+      }`}
+      onClick={() => handleFilterChange(category)}
+    >
+      {category}
+    </button>
+  ))}
+</div>
+
+      {/* Campaign List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filteredCampaigns.length > 0 ? (
+          filteredCampaigns.map((campaign) => (
             <FeatureBox
-              key={campaign.id} // Use unique id for the key
+              key={campaign.id}
               image={campaign.image}
               title={campaign.title}
               text={campaign.text}
@@ -115,12 +138,17 @@ function FeatureDetailsLoan() {
             />
           ))
         ) : (
-          <Typography.Text>No campaigns available</Typography.Text>
+          <p className="text-center text-xl font-poppins text-gray-600">
+            No campaigns available for the selected category.
+          </p>
         )}
       </div>
 
       {wallet && (
-        <div style={{ marginTop: '20px' }}>
+        <div className="mt-8">
+          <h3 className="text-2xl font-bold text-gray-800 font-poppins">
+            Your Wallet Balance: {wallet.coins} Coins
+          </h3>
         </div>
       )}
     </div>
