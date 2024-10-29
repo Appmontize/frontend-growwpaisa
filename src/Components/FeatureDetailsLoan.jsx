@@ -99,7 +99,6 @@ function FeatureDetailsLoan() {
       <h2 className="text-3xl font-bold text-gray-800 mb-4 font-poppins">
         Welcome, {userData ? userData.name : 'User'}
       </h2>
-      
 
       <CampaignSteps />
 
@@ -107,24 +106,20 @@ function FeatureDetailsLoan() {
         Our Best Categories
       </h2>
 
-   {/* Filter Buttons */}
-{/* Filter Buttons */}
-<div className="flex justify-center gap-4 mb-8">
-  {['All', 'Demat', 'Credit Card', 'Loan', 'Wallet'].map((category) => (
-    <button
-      key={category}
-      className={`px-6 py-3 rounded-lg border-2 border-black text-black font-semibold shadow-md transition-transform duration-300 ease-in-out ${
-        selectedCategory === category ? 'bg-cyan-600 scale-105 text-white' : 'bg-gray-200 hover:bg-cyan-500 hover:text-white'
-      }`}
-      onClick={() => handleFilterChange(category)}
-    >
-      {category}
-    </button>
-  ))}
-</div>
-
-
-
+      {/* Filter Buttons */}
+      <div className="flex flex-wrap justify-center gap-2 mb-8">
+        {['All', 'Demat', 'Credit Card', 'Loan', 'Wallet'].map((category) => (
+          <button
+            key={category}
+            className={`px-4 py-2 rounded-lg border-2 border-black text-black font-semibold shadow-md transition-transform duration-300 ease-in-out ${
+              selectedCategory === category ? 'bg-cyan-600 scale-105 text-white' : 'bg-gray-200 hover:bg-cyan-500 hover:text-white'
+            }`}
+            onClick={() => handleFilterChange(category)}
+          >
+            {category}
+          </button>
+        ))}
+      </div>
 
       {/* Campaign List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
