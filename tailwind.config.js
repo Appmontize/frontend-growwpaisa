@@ -1,14 +1,15 @@
 module.exports = {
   content: [
-    "./src/**/*.{js,jsx,ts,tsx}", // Adjust this path based on your project structure
+    "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
     extend: {
       colors: {
-        lavender: '#cdbdff', // Add custom lavender color
+        lavender: '#cdbdff',
       },
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'], // Add Poppins font
+        poppins: ['Poppins', 'sans-serif'],
+        nunito: ['Nunito', 'sans-serif'], // Add Nunito font
       },
     },
   },

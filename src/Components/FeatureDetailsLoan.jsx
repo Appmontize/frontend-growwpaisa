@@ -97,25 +97,24 @@ function FeatureDetailsLoan() {
   return (
     <div id="features1" className="mt-20 px-6">
       <h2 className="text-3xl font-bold text-gray-800 mb-4 font-poppins">
-        Hi, {userData ? userData.name : 'User'}
+        Welcome, {userData ? userData.name : 'User'}
       </h2>
-      <h2 className="text-3xl font-bold text-gray-800 font-poppins">
-        Explore Our Exclusive Financial Products and Start Earning Today!
-      </h2>
+      
 
       <CampaignSteps />
 
-      <h2 className="text-center text-4xl font-bold text-gray-800 mb-12 font-poppins">
-        Easy Tasks
+      <h2 className="text-center text-4xl font-extrabold text-gray-800 mb-12 font-nunito">
+        Our Best Categories
       </h2>
 
-     {/* Filter Buttons */}
+   {/* Filter Buttons */}
+{/* Filter Buttons */}
 <div className="flex justify-center gap-4 mb-8">
   {['All', 'Demat', 'Credit Card', 'Loan', 'Wallet'].map((category) => (
     <button
       key={category}
-      className={`px-6 py-3 rounded-lg text-white font-semibold shadow-md transition-transform duration-300 ease-in-out ${
-        selectedCategory === category ? 'bg-cyan-600 scale-105' : 'bg-gray-500 hover:bg-cyan-800'
+      className={`px-6 py-3 rounded-lg border-2 border-black text-black font-semibold shadow-md transition-transform duration-300 ease-in-out ${
+        selectedCategory === category ? 'bg-cyan-600 scale-105 text-white' : 'bg-gray-200 hover:bg-cyan-500 hover:text-white'
       }`}
       onClick={() => handleFilterChange(category)}
     >
@@ -123,6 +122,9 @@ function FeatureDetailsLoan() {
     </button>
   ))}
 </div>
+
+
+
 
       {/* Campaign List */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -138,7 +140,7 @@ function FeatureDetailsLoan() {
             />
           ))
         ) : (
-          <p className="text-center text-xl font-poppins text-gray-600">
+          <p className="text-center text-xl font-nunito text-gray-600">
             No campaigns available for the selected category.
           </p>
         )}

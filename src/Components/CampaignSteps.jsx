@@ -1,66 +1,82 @@
-import React from 'react';
-import image1 from '../images/sign-up-concept-illustration_114360-7965.png'; // Local Image
+import React, { useState, useEffect } from 'react';
+import gif1 from '../images/download.gif'; // Replace with your local path
+import gif2 from '../images/to-do-list-checklist.gif'; // Replace with your local path
+import gif3 from '../images/crypto-gold.gif'; // Replace with your local path
 
 function CampaignSteps() {
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAnimate(true);
+      setTimeout(() => setAnimate(false), 500); // Reset animation class after 0.5s
+    }, 3000); // Change interval as needed (3000ms = 3s)
+
+    return () => clearInterval(interval); // Cleanup interval on component unmount
+  }, []);
+
   return (
-    <div className=".bg-f7f7f7 py-16 px-4">
+    <div className="bg-f7f7f7 py-16 px-4">
       {/* Heading */}
-      <h2 className="text-center text-4xl font-bold text-gray-800 mb-12 font-poppins">
+      <h2 className="text-center text-4xl font-bold text-gray-800 mb-12 font-nunito">
         Start Earning Coins
       </h2>
 
       {/* Step Boxes */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
         {/* Step 1 */}
-        <div className="relative p-6 rounded-lg border-2 border-blue-900 text-center shadow-2xl transform hover:scale-105 transition duration-300 bg-white">
-          {/* Thinner border at the top, connected to the box */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-blue-900 rounded-t-lg"></div>
-          {/* Image for Step 1 */}
-          <img
-            src="https://img.freepik.com/premium-photo/3d-searching-job-illustration-human-resource-management-hiring-concept-trendy-modern-vector-3d-style_1199903-34623.jpg?semt=ais_hybrid"
-            alt="Step 1"
-            className="w-full h-40 object-cover rounded-md mb-4"
-          />
-          <div className="bg-green-500 p-2 rounded-md text-white text-lg font-bold mb-4 w-28 mx-auto">
-            <span className="font-poppins">Step 1</span>
+        <div className="text-center">
+          {/* Circle for GIF */}
+          <div className="w-52 h-52 mx-auto rounded-full border-4 border-white overflow-hidden mb-4">
+            <img
+              src={gif1}
+              alt="Step 1"
+              className={`w-full h-full object-cover transition-transform duration-500 ${animate ? 'transform scale-110' : 'scale-100'}`}
+            />
           </div>
-          <p className="text-gray-700 font-bold font-poppins">
-            Click on any app you like to install !! (Scroll down to check )
+          {/* Circle for Step Number */}
+          <div className="w-16 h-16 mx-auto rounded-full bg-green-500 flex items-center justify-center mb-4">
+            <span className="text-white text-3xl font-bold font-nunito">1</span>
+          </div>
+          <p className="text-black text-xl font-bold font-nunito text-center">
+            Click on any app you like to install!!
           </p>
         </div>
 
         {/* Step 2 */}
-        <div className="relative p-6 rounded-lg border-2 border-blue-900 text-center shadow-2xl transform hover:scale-105 transition duration-300 bg-white">
-          {/* Thinner border at the top, connected to the box */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-blue-900 rounded-t-lg"></div>
-          {/* Image from URL */}
-          <img
-            src="https://img.freepik.com/premium-vector/two-individuals-engage-downloading-app-mobile-phone-sunny-outdoor-setting-surrounded-by-greenery_538213-133309.jpg?semt=ais_hybrid" // Replace with actual image URL
-            alt="Step 2"
-            className="w-full h-40 object-contain rounded-md mb-4"
-          />
-          <div className="bg-green-500 p-2 rounded-md text-white text-lg font-bold mb-4 w-28 mx-auto">
-            <span className="font-poppins">Step 2</span>
+        <div className="text-center">
+          {/* Circle for GIF */}
+          <div className="w-52 h-52 mx-auto rounded-full border-4 border-white overflow-hidden mb-4">
+            <img
+              src={gif2}
+              alt="Step 2"
+              className={`w-full h-full object-cover transition-transform duration-500 ${animate ? 'transform scale-110' : 'scale-100'}`}
+            />
           </div>
-          <p className="text-gray-700 font-bold font-poppins">
+          {/* Circle for Step Number */}
+          <div className="w-16 h-16 mx-auto rounded-full bg-green-500 flex items-center justify-center mb-4">
+            <span className="text-white text-3xl font-bold font-nunito">2</span>
+          </div>
+          <p className="text-black text-xl font-bold font-nunito text-center">
             Install the app, and complete the task.
           </p>
         </div>
 
         {/* Step 3 */}
-        <div className="relative p-6 rounded-lg border-2 border-blue-900 text-center shadow-2xl transform hover:scale-105 transition duration-300 bg-white">
-          {/* Thinner border at the top, connected to the box */}
-          <div className="absolute top-0 left-0 right-0 h-2 bg-blue-900 rounded-t-lg"></div>
-          {/* Image from URL */}
-          <img
-            src="https://img.freepik.com/free-vector/flat-design-frugality-illustration_23-2150204790.jpg?semt=ais_hybrid" // Replace with actual image URL
-            alt="Step 3"
-            className="w-full h-40 object-contain rounded-md mb-4"
-          />
-          <div className="bg-green-500 p-2 rounded-md text-white text-lg font-bold mb-4 w-28 mx-auto">
-            <span className="font-poppins">Step 3</span>
+        <div className="text-center">
+          {/* Circle for GIF */}
+          <div className="w-52 h-52 mx-auto rounded-full border-4 border-white overflow-hidden mb-4">
+            <img
+              src={gif3}
+              alt="Step 3"
+              className={`w-full h-full object-cover transition-transform duration-500 ${animate ? 'transform scale-110' : 'scale-100'}`}
+            />
           </div>
-          <p className="text-gray-700 font-bold font-poppins">
+          {/* Circle for Step Number */}
+          <div className="w-16 h-16 mx-auto rounded-full bg-green-500 flex items-center justify-center mb-4">
+            <span className="text-white text-3xl font-bold font-nunito">3</span>
+          </div>
+          <p className="text-black text-xl font-bold font-nunito text-center">
             Get coins in your wallet.
           </p>
         </div>
