@@ -42,7 +42,7 @@ function HeaderCampaign() {
     <div className="bg-gray-50 py-12" id="headerCampaign">
       <div className="container mx-auto text-center">
         <Link to="/register" className="text-center text-5xl font-bold text-gray-800 mb-12 font-poppins">
-          <span>Discover Special Offers </span>
+          <span>  </span>
         </Link>
 
         <div className="flex flex-wrap justify-center items-center mt-6">

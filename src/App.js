@@ -5,68 +5,75 @@ import Register from './Auth/Register';
 import Login from './Auth/Login';
 import Profile from './pages/Profile';
 import { useAuth } from './contexts/AuthContext';
-//asdamsimdoasnm
 import Navbar from './Components/Navbar';
-import Header from './Components/Header';
-import Offer from './Components/Offer';
-import Contact from './Components/Contact';
 import Footer from './Components/footer/Footer';
-import SeparateLayout from './Components/SeparateLayout';
 import FeatureDetailsLoan from './Components/FeatureDetailsLoan';
 import PostsHome from './Components/Blogs/PostsHome';
 import ComingSoon from './Components/ComingSoon';
 import WalletPage from './pages/WalletPage';
-import HeaderCampaigns from './Components/HeaderCampaign';
+import Header from './Components/Header';
 import StepsToEarn from './Components/StepsToEarn';
 import FAQ from './Components/FAQ';
 import Testimonials from './Components/Testimonials';
 
 const App = () => {
+  const { isAuthenticated } = useAuth();
 
-  const {isAuthenticated} = useAuth();
-  const elementsForHomePage =[ 
-   
-    <Header key = "header"/>,
-    <StepsToEarn key= "steps" />,
-    <HeaderCampaigns key ="headerCampaigns" />, 
-    <Testimonials key = "testimonials" />,
-    <FAQ key= 'faq' />,    
-    
- 
-   ];
+  // Elements for the homepage layout
+  const elementsForHomePage = [
+    <Header key="header" />,
+    <StepsToEarn key="steps" />,
+    <Testimonials key="testimonials" />,
+    <FAQ key="faq" />,
+  ];
 
-  return <Router>
-    <div className="App">
-    <Navbar />
-    <Routes>
-    <Route path="/" element={elementsForHomePage }/>
-    <Route path="/ComingSoon" element={<ComingSoon/> }/>
-      <Route path = '/register' element={!isAuthenticated ? <Register /> : <Navigate to= '/campaigns'/>} />
-      <Route path = '/login' element={!isAuthenticated ? <Login /> : <Navigate to ="/campaigns"/>} />
-      <Route path = '/profile' element={isAuthenticated ? <Profile /> : <Login/>} />
-      <Route path = '/wallet' element={<WalletPage />} />
-      <Route path = '/profile' element = {<Profile />} />
-      
+  return (
+    <Router>
+      <div className="App">
+        {/* Navbar */}
+        <Navbar />
 
-         <Route
-            path="/campaigns"
-            element={<SeparateLayout><FeatureDetailsLoan /></SeparateLayout>}
-          />
+        {/* Routes */}
+        <Routes>
+          {/* Home Page */}
+          <Route path="/" element={elementsForHomePage} />
 
+          {/* Coming Soon */}
+          <Route path="/ComingSoon" element={<ComingSoon />} />
+
+          {/* Register */}
           <Route
-            path="/blogs"
-            element={<SeparateLayout><PostsHome /></SeparateLayout>}
+            path="/register"
+            element={!isAuthenticated ? <Register /> : <Navigate to="/campaigns" />}
           />
-           
-    </Routes>
-    <Footer />
-    
-    </div>
-    
-  </Router>
 
-  
-  
-}
+          {/* Login */}
+          <Route
+            path="/login"
+            element={!isAuthenticated ? <Login /> : <Navigate to="/campaigns" />}
+          />
+
+          {/* Profile */}
+          <Route
+            path="/profile"
+            element={isAuthenticated ? <Profile /> : <Navigate to="/login" />}
+          />
+
+          {/* Wallet Page */}
+          <Route path="/wallet" element={<WalletPage />} />
+
+          {/* Campaigns */}
+          <Route path="/campaigns" element={<FeatureDetailsLoan />} />
+
+          {/* Blogs */}
+          <Route path="/blogs" element={<PostsHome />} />
+        </Routes>
+
+        {/* Footer */}
+        <Footer />
+      </div>
+    </Router>
+  );
+};
 
 export default App;
