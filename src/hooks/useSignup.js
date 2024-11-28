@@ -27,7 +27,7 @@ const registerUser = async(values) => {
     try {
         setError(null);
         setloading(true);
-        const res = await fetch ('http://localhost:3001/auth/user/signup',{
+        const res = await fetch ('https://7cq9lm83-3001.inc1.devtunnels.ms/auth/user/signup',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
