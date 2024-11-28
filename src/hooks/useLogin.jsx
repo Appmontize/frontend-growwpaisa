@@ -11,7 +11,7 @@ const useLogin = () => {
     try {
       setError(null);
       setLoading(true);
-      const res = await fetch('https://7cq9lm83-3001.inc1.devtunnels.ms/auth/user/login', {
+      const res = await fetch('https://api.growwpaisa.com/auth/user/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ const useLogin = () => {
         login(data.token, data.user);
 
         // Fetch wallet details after successful login
-        const walletRes = await fetch(`https://7cq9lm83-3001.inc1.devtunnels.ms/api/wallet/${data.user.user_id}`);
+        const walletRes = await fetch(`https://api.growwpaisa.com/api/wallet/${data.user.user_id}`);
         const walletData = await walletRes.json();
         setUserWallet(walletData.amount); // Update wallet info in the context or state
       } else if (res.status === 400) {

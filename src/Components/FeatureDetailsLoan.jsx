@@ -30,7 +30,7 @@ function FeatureDetailsLoan() {
   // Fetch the user's wallet data
   const fetchWallet = async (user_id) => {
     try {
-      const response = await fetch(`https://7cq9lm83-3001.inc1.devtunnels.ms/api/wallet/${user_id}`);
+      const response = await fetch(`https://api.growwpaisa.com/api/wallet/${user_id}`);
       if (!response.ok) throw new Error('Failed to fetch wallet data');
       const data = await response.json();
       setWallet(data.wallet);
@@ -43,7 +43,7 @@ function FeatureDetailsLoan() {
   // Fetch all campaigns
   const fetchCampaigns = async () => {
     try {
-      const response = await fetch('https://7cq9lm83-3001.inc1.devtunnels.ms/campaign/fetch');
+      const response = await fetch('https://api.growwpaisa.com/campaign/fetch');
       if (!response.ok) throw new Error('Failed to fetch campaigns');
       const data = await response.json();
       setCampaigns(data || []);
@@ -76,7 +76,7 @@ function FeatureDetailsLoan() {
     setErrorMessage(''); // Clear previous errors
   
     try {
-      const response = await fetch('https://7cq9lm83-3001.inc1.devtunnels.ms/click/generate', {
+      const response = await fetch('https://api.growwpaisa.com/click/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

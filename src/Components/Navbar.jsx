@@ -60,7 +60,7 @@ function Navbar() {
           <RouterLink to="/">Home</RouterLink>
         </li>
         <li>
-          <a href="http://blogs.growwpaisa.com/">Blogs</a>
+          <a href="http://blog.growwpaisa.com/">Blogs</a>
         </li>
         <li>
           <RouterLink to="/register">Campaigns</RouterLink>
